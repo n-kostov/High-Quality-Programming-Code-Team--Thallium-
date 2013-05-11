@@ -4,7 +4,7 @@ namespace LabirynthGame
 {
     class LabirynthTest
     {
-        static void Main()
+        public static void Main()
         {
             Labirynth test = new Labirynth();
             test.PlayGame();

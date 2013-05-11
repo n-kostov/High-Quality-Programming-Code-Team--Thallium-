@@ -3,8 +3,7 @@ using Wintellect.PowerCollections;
 
 namespace LabirynthGame
 {
-	// tuka polzvame edna biblioteka - PowerCollections - moze da ya namerite v gugal - ima sortiran re4nik, mnogo udobno za klasaciata
-    class Labirynth
+    public class Labirynth
     {
         private const int sz = 7;
         private const int px = 3;
@@ -21,7 +20,6 @@ namespace LabirynthGame
 
         private char[,] matrix;
         private OrderedMultiDictionary<int, string> scoreBoard;
-       
 
         public Labirynth()
         {
@@ -33,8 +31,7 @@ namespace LabirynthGame
 
         private void Move(int dirX, int dirY)
         {
-
-            if(this.IsMoveValid(this.playerPositionX + dirX , this.playerPositionY+dirY)==false)
+            if (this.IsMoveValid(this.playerPositionX + dirX, this.playerPositionY + dirY) == false)
             {
                 return;
             }
@@ -55,6 +52,7 @@ namespace LabirynthGame
                 return;
             }
         }
+
         private bool IsMoveValid(int x, int y)
         {
             if (x < 0 || x > sz - 1 || y < 0 || y > sz - 1)
@@ -64,6 +62,7 @@ namespace LabirynthGame
 
             return true;
         }
+
         private void PrintLabirynth()
         {
             for (int row = 0; row < sz; row++)
@@ -72,11 +71,13 @@ namespace LabirynthGame
                 {
                     Console.Write("{0,2}", this.matrix[row, col]);
                 }
+
                 Console.WriteLine();
             }
         }
+
         private char[,] GenerateMatrix()
-        { 
+        {
             char[,] generatedMatrix = new char[sz, sz];
             Random rand = new Random();
             int percentageOfBlockedCells = rand.Next(MinimumPercentageOfBlockedCells, MaximumPercentageOfBlockedCells);
@@ -94,9 +95,9 @@ namespace LabirynthGame
                     {
                         generatedMatrix[row, col] = FreeCell;
                     }
-
                 }
             }
+
             generatedMatrix[playerPositionY, playerPositionX] = PlayerSign;
 
             this.MakeAtLeastOneExitReachable(generatedMatrix);
@@ -104,6 +105,7 @@ namespace LabirynthGame
             Console.WriteLine("scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
             return generatedMatrix;
         }
+
         private void MakeAtLeastOneExitReachable(char[,] generatedMatrix)
         {
             Random rand = new Random();
@@ -114,7 +116,7 @@ namespace LabirynthGame
             int numberOfDirections = 4;
             int maximumTimesToChangeAfter = 2;
 
-            while (this.IsGameOver(pathX , pathY) == false)
+            while (this.IsGameOver(pathX, pathY) == false)
             {
                 int num = rand.Next(0, numberOfDirections);
                 int times = rand.Next(0, maximumTimesToChangeAfter);
@@ -124,17 +126,14 @@ namespace LabirynthGame
                     if (pathX + dirX[num] >= 0 && pathX + dirX[num] < sz && pathY + dirY[num] >= 0 &&
                         pathY + dirY[num] < sz)
                     {
-
-
                         pathX += dirX[num];
-
-
-
                         pathY += dirY[num];
+
                         if (generatedMatrix[pathY, pathX] == PlayerSign)
                         {
                             continue;
                         }
+
                         generatedMatrix[pathY, pathX] = FreeCell;
                     }
                 }
@@ -143,8 +142,8 @@ namespace LabirynthGame
 
         private bool IsGameOver(int playerPositionX, int playerPositionY)
         {
-            if ((playerPositionX > 0 && playerPositionX < sz-1) && 
-                (playerPositionY > 0 && playerPositionY < sz-1))
+            if ((playerPositionX > 0 && playerPositionX < sz - 1) &&
+                (playerPositionY > 0 && playerPositionY < sz - 1))
             {
                 return false;
             }
@@ -154,9 +153,8 @@ namespace LabirynthGame
 
         private int GetWorstScore()
         {
-
-
             int worstScore = 0;
+
             foreach (var score in this.scoreBoard.Keys)
             {
                 worstScore = score;
@@ -172,9 +170,6 @@ namespace LabirynthGame
             if (this.scoreBoard.Count == 0)
             {
                 Console.WriteLine("The scoreboard is empty.");
-
-
-
             }
             else
             {
@@ -185,12 +180,11 @@ namespace LabirynthGame
                     foreach (var equalScore in foundScore)
                     {
                         Console.WriteLine("{0}. {1} --> {2}", counter, equalScore, score.Key);
-
                     }
+
                     counter++;
                 }
             }
-
 
             Console.WriteLine();
         }
@@ -199,7 +193,7 @@ namespace LabirynthGame
         {
             string command = string.Empty;
             int movesCounter = 0;
-            while (command.Equals("EXIT")==false)
+            while (command.Equals("EXIT") == false)
             {
                 PrintLabirynth();
                 string currentLine = string.Empty;
@@ -218,6 +212,7 @@ namespace LabirynthGame
                     Console.Write("Enter your move (L=left, R-right, U=up, D=down):");
                     currentLine = Console.ReadLine();
                 }
+
                 if (currentLine == string.Empty)
                 {
                     continue;
@@ -225,10 +220,7 @@ namespace LabirynthGame
 
                 command = currentLine.ToUpper();
                 this.ExecuteCommand(command, ref movesCounter);
-            }       
-     
-
-
+            }
         }
 
         private void ExecuteCommand(string command, ref int movesCounter)
@@ -241,24 +233,28 @@ namespace LabirynthGame
                         Move(-1, 0);
                         break;
                     }
+
                 case "R":
                     {
                         movesCounter++;
                         Move(1, 0);
                         break;
                     }
+
                 case "U":
                     {
                         movesCounter++;
                         Move(0, -1);
                         break;
                     }
+
                 case "D":
                     {
                         movesCounter++;
                         Move(0, 1);
                         break;
                     }
+
                 case "RESTART":
                     {
                         this.playerPositionX = px;
@@ -267,15 +263,18 @@ namespace LabirynthGame
 
                         break;
                     }
+
                 case "TOP":
                     {
                         this.PrintScore();
                         break;
                     }
+
                 case "EXIT":
                     {
                         break;
                     }
+
                 default:
                     {
                         Console.WriteLine("Invalid input!");
@@ -285,6 +284,7 @@ namespace LabirynthGame
                     }
             }
         }
+
         private void UpdateScoreBoard(int currentNumberOfMoves)
         {
             string userName = string.Empty;
@@ -296,6 +296,7 @@ namespace LabirynthGame
                     Console.WriteLine("**Please put down your name:**");
                     userName = Console.ReadLine();
                 }
+
                 this.scoreBoard.Add(currentNumberOfMoves, userName);
             }
             else
@@ -307,11 +308,13 @@ namespace LabirynthGame
                     {
                         this.scoreBoard.Remove(worstScore);
                     }
+
                     while (userName == string.Empty)
                     {
                         Console.WriteLine("**Please put down your name:**");
                         userName = Console.ReadLine();
                     }
+
                     this.scoreBoard.Add(currentNumberOfMoves, userName);
                 }
             }
