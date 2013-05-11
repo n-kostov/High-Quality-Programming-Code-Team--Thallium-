@@ -1,0 +1,6 @@
+C:\Users\virusa\Documents\Visual Studio 2012\Projects\Telerik\High Quality Programming Code\Team Project - Labyrinth\Test\Test\bin\Debug\Test.exe.config
+C:\Users\virusa\Documents\Visual Studio 2012\Projects\Telerik\High Quality Programming Code\Team Project - Labyrinth\Test\Test\bin\Debug\Test.exe
+C:\Users\virusa\Documents\Visual Studio 2012\Projects\Telerik\High Quality Programming Code\Team Project - Labyrinth\Test\Test\bin\Debug\Test.pdb
+C:\Users\virusa\Documents\Visual Studio 2012\Projects\Telerik\High Quality Programming Code\Team Project - Labyrinth\Test\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
+C:\Users\virusa\Documents\Visual Studio 2012\Projects\Telerik\High Quality Programming Code\Team Project - Labyrinth\Test\Test\obj\Debug\Test.exe
+C:\Users\virusa\Documents\Visual Studio 2012\Projects\Telerik\High Quality Programming Code\Team Project - Labyrinth\Test\Test\obj\Debug\Test.pdb
