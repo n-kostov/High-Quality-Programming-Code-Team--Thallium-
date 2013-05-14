@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Linq;
 using Wintellect.PowerCollections;
 
 namespace LabirynthGame
 {
     public class Labirynth
     {
-        private const int sz = 7;
-        private const int px = 3;
-        private const int py = 3;
+        private const int SizeOfTheLabirynth = 7;
+        private const int StartPositionX = 3;
+        private const int StartPositionY = 3;
         private const int MinimumPercentageOfBlockedCells = 30;
         private const int MaximumPercentageOfBlockedCells = 50;
 
@@ -23,20 +24,20 @@ namespace LabirynthGame
 
         public Labirynth()
         {
-            this.playerPositionX = px;
-            this.playerPositionY = py;
+            this.playerPositionX = StartPositionX;
+            this.playerPositionY = StartPositionY;
             this.matrix = this.GenerateMatrix();
             this.scoreBoard = new OrderedMultiDictionary<int, string>(true);
         }
 
-        private void Move(int dirX, int dirY)
+        private void Move(int directionX, int directionY)
         {
-            if (this.IsMoveValid(this.playerPositionX + dirX, this.playerPositionY + dirY) == false)
+            if (this.IsMoveValid(this.playerPositionX + directionX, this.playerPositionY + directionY) == false)
             {
                 return;
             }
 
-            if (this.matrix[playerPositionY + dirY, playerPositionX + dirX] == BlockedCell)
+            if (this.matrix[playerPositionY + directionY, playerPositionX + directionX] == BlockedCell)
             {
                 Console.WriteLine("Invalid Move!");
                 Console.WriteLine("**Press a key to continue**");
@@ -46,16 +47,17 @@ namespace LabirynthGame
             else
             {
                 this.matrix[this.playerPositionY, this.playerPositionX] = FreeCell;
-                this.matrix[this.playerPositionY + dirY, this.playerPositionX + dirX] = PlayerSign;
-                this.playerPositionY += dirY;
-                this.playerPositionX += dirX;
+                this.matrix[this.playerPositionY + directionY, this.playerPositionX + directionX] = PlayerSign;
+                this.playerPositionY += directionY;
+                this.playerPositionX += directionX;
                 return;
             }
         }
 
-        private bool IsMoveValid(int x, int y)
+        private bool IsMoveValid(int positionX, int positionY)
         {
-            if (x < 0 || x > sz - 1 || y < 0 || y > sz - 1)
+            if (positionX < 0 || positionX > SizeOfTheLabirynth - 1 ||
+                positionY < 0 || positionY > SizeOfTheLabirynth - 1)
             {
                 return false;
             }
@@ -65,9 +67,9 @@ namespace LabirynthGame
 
         private void PrintLabirynth()
         {
-            for (int row = 0; row < sz; row++)
+            for (int row = 0; row < SizeOfTheLabirynth; row++)
             {
-                for (int col = 0; col < sz; col++)
+                for (int col = 0; col < SizeOfTheLabirynth; col++)
                 {
                     Console.Write("{0,2}", this.matrix[row, col]);
                 }
@@ -78,13 +80,13 @@ namespace LabirynthGame
 
         private char[,] GenerateMatrix()
         {
-            char[,] generatedMatrix = new char[sz, sz];
+            char[,] generatedMatrix = new char[SizeOfTheLabirynth, SizeOfTheLabirynth];
             Random rand = new Random();
             int percentageOfBlockedCells = rand.Next(MinimumPercentageOfBlockedCells, MaximumPercentageOfBlockedCells);
 
-            for (int row = 0; row < sz; row++)
+            for (int row = 0; row < SizeOfTheLabirynth; row++)
             {
-                for (int col = 0; col < sz; col++)
+                for (int col = 0; col < SizeOfTheLabirynth; col++)
                 {
                     int num = rand.Next(0, 100);
                     if (num < percentageOfBlockedCells)
@@ -101,16 +103,18 @@ namespace LabirynthGame
             generatedMatrix[playerPositionY, playerPositionX] = PlayerSign;
 
             this.MakeAtLeastOneExitReachable(generatedMatrix);
+
             Console.WriteLine("Welcome to “Labirinth” game. Please try to escape. Use 'top' to view the top");
             Console.WriteLine("scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
+
             return generatedMatrix;
         }
 
         private void MakeAtLeastOneExitReachable(char[,] generatedMatrix)
         {
             Random rand = new Random();
-            int pathX = px;
-            int pathY = py;
+            int pathX = StartPositionX;
+            int pathY = StartPositionY;
             int[] dirX = { 0, 0, 1, -1 };
             int[] dirY = { 1, -1, 0, 0 };
             int numberOfDirections = 4;
@@ -123,8 +127,8 @@ namespace LabirynthGame
 
                 for (int d = 0; d < times; d++)
                 {
-                    if (pathX + dirX[num] >= 0 && pathX + dirX[num] < sz && pathY + dirY[num] >= 0 &&
-                        pathY + dirY[num] < sz)
+                    if (pathX + dirX[num] >= 0 && pathX + dirX[num] < SizeOfTheLabirynth && pathY + dirY[num] >= 0 &&
+                        pathY + dirY[num] < SizeOfTheLabirynth)
                     {
                         pathX += dirX[num];
                         pathY += dirY[num];
@@ -142,8 +146,8 @@ namespace LabirynthGame
 
         private bool IsGameOver(int playerPositionX, int playerPositionY)
         {
-            if ((playerPositionX > 0 && playerPositionX < sz - 1) &&
-                (playerPositionY > 0 && playerPositionY < sz - 1))
+            if ((playerPositionX > 0 && playerPositionX < SizeOfTheLabirynth - 1) &&
+                (playerPositionY > 0 && playerPositionY < SizeOfTheLabirynth - 1))
             {
                 return false;
             }
@@ -153,12 +157,7 @@ namespace LabirynthGame
 
         private int GetWorstScore()
         {
-            int worstScore = 0;
-
-            foreach (var score in this.scoreBoard.Keys)
-            {
-                worstScore = score;
-            }
+            int worstScore = this.scoreBoard.Keys.Last();
 
             return worstScore;
         }
@@ -257,8 +256,8 @@ namespace LabirynthGame
 
                 case "RESTART":
                     {
-                        this.playerPositionX = px;
-                        this.playerPositionY = py;
+                        this.playerPositionX = StartPositionX;
+                        this.playerPositionY = StartPositionY;
                         this.matrix = this.GenerateMatrix();
 
                         break;
