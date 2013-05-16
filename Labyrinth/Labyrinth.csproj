@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine.cs" />
     <Compile Include="LabirynthTest.cs" />
     <Compile Include="Labirynth.cs" />
     <Compile Include="ScoreBoard.cs" />

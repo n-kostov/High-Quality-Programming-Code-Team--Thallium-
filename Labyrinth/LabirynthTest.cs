@@ -4,10 +4,11 @@ namespace LabirynthGame
 {
     class LabirynthTest
     {
+        private static int SizeOfTheLabirynth = 7;
         public static void Main()
         {
-            Labirynth test = new Labirynth();
-            test.PlayGame();
+            Engine labirynthEngine = new Engine(SizeOfTheLabirynth);
+            labirynthEngine.PlayGame();
         }
     }
 }
