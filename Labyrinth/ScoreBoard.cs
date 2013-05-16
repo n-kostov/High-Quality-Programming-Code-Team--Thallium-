@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Wintellect.PowerCollections;
-
-namespace LabirynthGame
+﻿namespace LabirynthGame
 {
+    using System;
+    using System.Linq;
+    using Wintellect.PowerCollections;
+
     public class ScoreBoard
     {
         private OrderedMultiDictionary<int, Player> scoreBoard;

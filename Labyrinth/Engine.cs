@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace LabirynthGame
+﻿namespace LabirynthGame
 {
+    using System;
+
     public class Engine
     {
-        private int sizeOfTheLabirynth;
         private const int StartPositionX = 3;
         private const int StartPositionY = 3;
 
         private const char BlockedCell = 'X';
         private const char FreeCell = '-';
         private const char PlayerSign = '*';
+
+        private int sizeOfTheLabirynth;
 
         private Labirynth labirynth;
         private ScoreBoard scoreBoard;
@@ -26,6 +24,35 @@ namespace LabirynthGame
             this.scoreBoard = new ScoreBoard();
             this.player = new Player(StartPositionX, StartPositionY);
             this.IntroduceTheGame();
+        }
+
+        public void PlayGame()
+        {
+            string command = string.Empty;
+            while (command.Equals("EXIT") == false)
+            {
+                this.labirynth.PrintLabirynth();
+                string currentLine = string.Empty;
+
+                if (this.HasWon(this.player.PositionX, this.player.PositionY))
+                {
+                    this.CelebrateVictory();
+                    currentLine = "RESTART";
+                }
+                else
+                {
+                    Console.Write("Enter your move (L=left, R-right, U=up, D=down):");
+                    currentLine = Console.ReadLine();
+                }
+
+                if (currentLine == string.Empty)
+                {
+                    continue;
+                }
+
+                command = currentLine.ToUpper();
+                this.ExecuteCommand(command);
+            }
         }
 
         private void IntroduceTheGame()
@@ -63,30 +90,30 @@ namespace LabirynthGame
             {
                 if (directionY < 0)
                 {
-                    player.MoveUp();
+                    this.player.MoveUp();
                 }
                 else
                 {
-                    player.MoveDown();
+                    this.player.MoveDown();
                 }
             }
             else
             {
                 if (directionX < 0)
                 {
-                    player.MoveLeft();
+                    this.player.MoveLeft();
                 }
                 else
                 {
-                    player.MoveRight();
+                    this.player.MoveRight();
                 }
             }
         }
 
         private bool IsMoveValid(int positionX, int positionY)
         {
-            if (positionX < 0 || positionX > sizeOfTheLabirynth - 1 ||
-                positionY < 0 || positionY > sizeOfTheLabirynth - 1)
+            if (positionX < 0 || positionX > this.sizeOfTheLabirynth - 1 ||
+                positionY < 0 || positionY > this.sizeOfTheLabirynth - 1)
             {
                 return false;
             }
@@ -94,39 +121,10 @@ namespace LabirynthGame
             return true;
         }
 
-        public void PlayGame()
+        private bool HasWon(int positionX, int positionY)
         {
-            string command = string.Empty;
-            while (command.Equals("EXIT") == false)
-            {
-                labirynth.PrintLabirynth();
-                string currentLine = string.Empty;
-
-                if (HasWon(this.player.PositionX, this.player.PositionY))
-                {
-                    this.CelebrateVictory();
-                    currentLine = "RESTART";
-                }
-                else
-                {
-                    Console.Write("Enter your move (L=left, R-right, U=up, D=down):");
-                    currentLine = Console.ReadLine();
-                }
-
-                if (currentLine == string.Empty)
-                {
-                    continue;
-                }
-
-                command = currentLine.ToUpper();
-                this.ExecuteCommand(command);
-            }
-        }
-
-        private bool HasWon(int row, int col)
-        {
-            if ((row > 0 && row < this.sizeOfTheLabirynth - 1) &&
-                (col > 0 && col < this.sizeOfTheLabirynth - 1))
+            if ((positionX > 0 && positionX < this.sizeOfTheLabirynth - 1) &&
+                (positionY > 0 && positionY < this.sizeOfTheLabirynth - 1))
             {
                 return false;
             }
@@ -136,7 +134,7 @@ namespace LabirynthGame
 
         private void CelebrateVictory()
         {
-            Console.WriteLine("Congratulations! You've exited the labirynth in {0} moves.", player.Moves);
+            Console.WriteLine("Congratulations! You've exited the labirynth in {0} moves.", this.player.Moves);
 
             string userName = string.Empty;
 
@@ -148,9 +146,8 @@ namespace LabirynthGame
 
             this.player.Name = userName;
 
-            scoreBoard.UpdateScoreBoard(player);
-            scoreBoard.PrintScore();
-            
+            this.scoreBoard.UpdateScoreBoard(this.player);
+            this.scoreBoard.PrintScore();
         }
 
         private void ExecuteCommand(string command)
@@ -159,25 +156,25 @@ namespace LabirynthGame
             {
                 case "L":
                     {
-                        Move(0, -1);
+                        this.Move(0, -1);
                         break;
                     }
 
                 case "R":
                     {
-                        Move(0, 1);
+                        this.Move(0, 1);
                         break;
                     }
 
                 case "U":
                     {
-                        Move(-1, 0);
+                        this.Move(-1, 0);
                         break;
                     }
 
                 case "D":
                     {
-                        Move(1, 0);
+                        this.Move(1, 0);
                         break;
                     }
 
@@ -190,7 +187,7 @@ namespace LabirynthGame
 
                 case "TOP":
                     {
-                        scoreBoard.PrintScore();
+                        this.scoreBoard.PrintScore();
                         break;
                     }
 

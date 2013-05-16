@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace LabirynthGame
+﻿namespace LabirynthGame
 {
+    using System;
+
     public class Player : IComparable
     {
-        public string Name { get; set; }
-        public int Moves { get; private set; }
-        public int PositionX { get; private set; }
-        public int PositionY { get; private set; }
-        // TODO: setter should be checked
-
         public Player(int positionX, int positionY)
         {
             this.PositionX = positionX;
             this.PositionY = positionY;
         }
+
+        public string Name { get; set; }
+
+        public int Moves { get; private set; }
+
+        public int PositionX { get; private set; }
+
+        public int PositionY { get; private set; } // TODO: setter should be checked
 
         public void MoveLeft()
         {
@@ -45,7 +44,10 @@ namespace LabirynthGame
 
         public int CompareTo(object obj)
         {
-            if (obj == null) return 1;
+            if (obj == null)
+            {
+                return 1;
+            }
 
             Player otherPlayer = obj as Player;
             if (otherPlayer != null)
