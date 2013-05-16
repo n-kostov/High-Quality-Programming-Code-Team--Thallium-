@@ -25,6 +25,13 @@ namespace LabirynthGame
             this.labirynth = new Labirynth(sizeOfTheLabirynth);
             this.scoreBoard = new ScoreBoard();
             this.player = new Player(StartPositionX, StartPositionY);
+            this.IntroduceTheGame();
+        }
+
+        private void IntroduceTheGame()
+        {
+            Console.WriteLine("Welcome to “Labirinth” game. Please try to escape. Use 'top' to view the top");
+            Console.WriteLine("scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
         }
 
         private void Move(int directionX, int directionY)
