@@ -15,29 +15,26 @@ namespace LabirynthGame
         private const char FreeCell = '-';
         private const char PlayerSign = '*';
 
-        private int playerPositionX;
-        private int playerPositionY;
-
         private Labirynth labirynth;
         private ScoreBoard scoreBoard;
+        private Player player;
 
         public Engine(int sizeOfTheLabirynth)
         {
-            this.playerPositionX = StartPositionX;
-            this.playerPositionY = StartPositionY;
             this.sizeOfTheLabirynth = sizeOfTheLabirynth;
             this.labirynth = new Labirynth(sizeOfTheLabirynth);
             this.scoreBoard = new ScoreBoard();
+            this.player = new Player(StartPositionX, StartPositionY);
         }
 
         private void Move(int directionX, int directionY)
         {
-            if (this.IsMoveValid(this.playerPositionX + directionX, this.playerPositionY + directionY) == false)
+            if (this.IsMoveValid(this.player.PositionX + directionX, this.player.PositionY + directionY) == false)
             {
                 return;
             }
 
-            if (this.labirynth[playerPositionY + directionY, playerPositionX + directionX] == BlockedCell)
+            if (this.labirynth[this.player.PositionX + directionX, this.player.PositionY + directionY] == BlockedCell)
             {
                 Console.WriteLine("Invalid Move!");
                 Console.WriteLine("**Press a key to continue**");
@@ -46,10 +43,32 @@ namespace LabirynthGame
             }
             else
             {
-                this.labirynth[this.playerPositionY, this.playerPositionX] = FreeCell;
-                this.labirynth[this.playerPositionY + directionY, this.playerPositionX + directionX] = PlayerSign;
-                this.playerPositionY += directionY;
-                this.playerPositionX += directionX;
+                this.labirynth[this.player.PositionX, this.player.PositionY] = FreeCell;
+                this.labirynth[this.player.PositionX + directionX, this.player.PositionY + directionY] = PlayerSign;
+
+                if (directionX == 0)
+                {
+                    if (directionY < 0)
+                    {
+                        player.MoveUp();
+                    } 
+                    else
+                    {
+                        player.MoveDown();
+                    }
+                } 
+                else
+                {
+                    if (directionX < 0)
+                    {
+                        player.MoveLeft();
+                    } 
+                    else
+                    {
+                        player.MoveRight();
+                    }
+                }
+
                 return;
             }
         }
@@ -68,19 +87,27 @@ namespace LabirynthGame
         public void PlayGame()
         {
             string command = string.Empty;
-            int movesCounter = 0;
             while (command.Equals("EXIT") == false)
             {
                 labirynth.PrintLabirynth();
                 string currentLine = string.Empty;
 
-                if (labirynth.HasSolution(this.playerPositionX, this.playerPositionY))
+                if (labirynth.HasSolution(this.player.PositionX, this.player.PositionY))
                 {
-                    Console.WriteLine("Congratulations! You've exited the labirynth in {0} moves.", movesCounter);
+                    Console.WriteLine("Congratulations! You've exited the labirynth in {0} moves.", player.Moves);
 
-                    scoreBoard.UpdateScoreBoard(movesCounter);
+                    string userName = string.Empty;
+
+                    while (userName == string.Empty)
+                    {
+                        Console.WriteLine("**Please put down your name:**");
+                        userName = Console.ReadLine();
+                    }
+
+                    this.player.Name = userName;
+
+                    scoreBoard.UpdateScoreBoard(player);
                     scoreBoard.PrintScore();
-                    movesCounter = 0;
                     currentLine = "RESTART";
                 }
                 else
@@ -95,46 +122,41 @@ namespace LabirynthGame
                 }
 
                 command = currentLine.ToUpper();
-                this.ExecuteCommand(command, ref movesCounter);
+                this.ExecuteCommand(command);
             }
         }
 
-        private void ExecuteCommand(string command, ref int movesCounter)
+        private void ExecuteCommand(string command)
         {
             switch (command.ToUpper())
             {
                 case "L":
                     {
-                        movesCounter++;
-                        Move(-1, 0);
+                        Move(0, -1);
                         break;
                     }
 
                 case "R":
                     {
-                        movesCounter++;
-                        Move(1, 0);
+                        Move(0, 1);
                         break;
                     }
 
                 case "U":
                     {
-                        movesCounter++;
-                        Move(0, -1);
+                        Move(-1, 0);
                         break;
                     }
 
                 case "D":
                     {
-                        movesCounter++;
-                        Move(0, 1);
+                        Move(1, 0);
                         break;
                     }
 
                 case "RESTART":
                     {
-                        this.playerPositionX = StartPositionX;
-                        this.playerPositionY = StartPositionY;
+                        this.player = new Player(StartPositionX, StartPositionY);
                         this.labirynth = new Labirynth(this.sizeOfTheLabirynth);
                         this.PlayGame();
 

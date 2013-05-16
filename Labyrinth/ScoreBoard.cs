@@ -8,11 +8,11 @@ namespace LabirynthGame
 {
     public class ScoreBoard
     {
-        private OrderedMultiDictionary<int, string> scoreBoard;
+        private OrderedMultiDictionary<int, Player> scoreBoard;
 
         public ScoreBoard()
         {
-            this.scoreBoard = new OrderedMultiDictionary<int, string>(true);
+            this.scoreBoard = new OrderedMultiDictionary<int, Player>(true);
         }
 
         public int GetWorstScore()
@@ -34,11 +34,11 @@ namespace LabirynthGame
             {
                 foreach (var score in this.scoreBoard)
                 {
-                    var foundScore = this.scoreBoard[score.Key];
+                    var playersWithEqualScore = this.scoreBoard[score.Key];
 
-                    foreach (var equalScore in foundScore)
+                    foreach (var player in playersWithEqualScore)
                     {
-                        Console.WriteLine("{0}. {1} --> {2}", counter, equalScore, score.Key);
+                        Console.WriteLine("{0}. {1} --> {2}", counter, player.Name, score.Key);
                     }
 
                     counter++;
@@ -48,37 +48,23 @@ namespace LabirynthGame
             Console.WriteLine();
         }
 
-        public void UpdateScoreBoard(int currentNumberOfMoves)
+        public void UpdateScoreBoard(Player player)
         {
-            string userName = string.Empty;
-
             if (this.scoreBoard.Count < 5)
             {
-                while (userName == string.Empty)
-                {
-                    Console.WriteLine("**Please put down your name:**");
-                    userName = Console.ReadLine();
-                }
-
-                this.scoreBoard.Add(currentNumberOfMoves, userName);
+                this.scoreBoard.Add(player.Moves, player);
             }
             else
             {
                 int worstScore = this.GetWorstScore();
-                if (currentNumberOfMoves <= worstScore)
+                if (player.Moves <= worstScore)
                 {
-                    if (this.scoreBoard.ContainsKey(currentNumberOfMoves) == false)
+                    if (this.scoreBoard.ContainsKey(player.Moves) == false)
                     {
                         this.scoreBoard.Remove(worstScore);
                     }
 
-                    while (userName == string.Empty)
-                    {
-                        Console.WriteLine("**Please put down your name:**");
-                        userName = Console.ReadLine();
-                    }
-
-                    this.scoreBoard.Add(currentNumberOfMoves, userName);
+                    this.scoreBoard.Add(player.Moves, player);
                 }
             }
         }

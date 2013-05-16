@@ -49,6 +49,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="LabirynthTest.cs" />
     <Compile Include="Labirynth.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="ScoreBoard.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -123,21 +123,21 @@ namespace LabirynthGame
                         pathX += dirX[num];
                         pathY += dirY[num];
 
-                        if (generatedMatrix[pathY, pathX] == PlayerSign)
+                        if (generatedMatrix[pathX, pathY] == PlayerSign)
                         {
                             continue;
                         }
 
-                        generatedMatrix[pathY, pathX] = FreeCell;
+                        generatedMatrix[pathX, pathY] = FreeCell;
                     }
                 }
             }
         }
 
-        public bool HasSolution(int playerPositionX, int playerPositionY)
+        public bool HasSolution(int row, int col)
         {
-            if ((playerPositionX > 0 && playerPositionX < SizeOfTheLabirynth - 1) &&
-                (playerPositionY > 0 && playerPositionY < SizeOfTheLabirynth - 1))
+            if ((row > 0 && row < SizeOfTheLabirynth - 1) &&
+                (col > 0 && col < SizeOfTheLabirynth - 1))
             {
                 return false;
             }
