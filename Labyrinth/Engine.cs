@@ -43,9 +43,7 @@ namespace LabirynthGame
 
             if (this.labirynth[this.player.PositionX + directionX, this.player.PositionY + directionY] == BlockedCell)
             {
-                Console.WriteLine("Invalid Move!");
-                Console.WriteLine("**Press a key to continue**");
-                Console.ReadKey();
+                this.PrintInvalidInput();
                 return;
             }
             else
@@ -53,30 +51,35 @@ namespace LabirynthGame
                 this.labirynth[this.player.PositionX, this.player.PositionY] = FreeCell;
                 this.labirynth[this.player.PositionX + directionX, this.player.PositionY + directionY] = PlayerSign;
 
-                if (directionX == 0)
-                {
-                    if (directionY < 0)
-                    {
-                        player.MoveUp();
-                    } 
-                    else
-                    {
-                        player.MoveDown();
-                    }
-                } 
-                else
-                {
-                    if (directionX < 0)
-                    {
-                        player.MoveLeft();
-                    } 
-                    else
-                    {
-                        player.MoveRight();
-                    }
-                }
+                this.ChoosePlayerMove(directionX, directionY);
 
                 return;
+            }
+        }
+
+        private void ChoosePlayerMove(int directionX, int directionY)
+        {
+            if (directionX == 0)
+            {
+                if (directionY < 0)
+                {
+                    player.MoveUp();
+                }
+                else
+                {
+                    player.MoveDown();
+                }
+            }
+            else
+            {
+                if (directionX < 0)
+                {
+                    player.MoveLeft();
+                }
+                else
+                {
+                    player.MoveRight();
+                }
             }
         }
 
@@ -99,22 +102,9 @@ namespace LabirynthGame
                 labirynth.PrintLabirynth();
                 string currentLine = string.Empty;
 
-                if (labirynth.HasSolution(this.player.PositionX, this.player.PositionY))
+                if (HasWon(this.player.PositionX, this.player.PositionY))
                 {
-                    Console.WriteLine("Congratulations! You've exited the labirynth in {0} moves.", player.Moves);
-
-                    string userName = string.Empty;
-
-                    while (userName == string.Empty)
-                    {
-                        Console.WriteLine("**Please put down your name:**");
-                        userName = Console.ReadLine();
-                    }
-
-                    this.player.Name = userName;
-
-                    scoreBoard.UpdateScoreBoard(player);
-                    scoreBoard.PrintScore();
+                    this.CelebrateVictory();
                     currentLine = "RESTART";
                 }
                 else
@@ -131,6 +121,36 @@ namespace LabirynthGame
                 command = currentLine.ToUpper();
                 this.ExecuteCommand(command);
             }
+        }
+
+        private bool HasWon(int row, int col)
+        {
+            if ((row > 0 && row < this.sizeOfTheLabirynth - 1) &&
+                (col > 0 && col < this.sizeOfTheLabirynth - 1))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private void CelebrateVictory()
+        {
+            Console.WriteLine("Congratulations! You've exited the labirynth in {0} moves.", player.Moves);
+
+            string userName = string.Empty;
+
+            while (userName == string.Empty)
+            {
+                Console.WriteLine("**Please put down your name:**");
+                userName = Console.ReadLine();
+            }
+
+            this.player.Name = userName;
+
+            scoreBoard.UpdateScoreBoard(player);
+            scoreBoard.PrintScore();
+            
         }
 
         private void ExecuteCommand(string command)
@@ -165,8 +185,6 @@ namespace LabirynthGame
                     {
                         this.player = new Player(StartPositionX, StartPositionY);
                         this.labirynth = new Labirynth(this.sizeOfTheLabirynth);
-                        this.PlayGame();
-
                         break;
                     }
 
@@ -183,12 +201,17 @@ namespace LabirynthGame
 
                 default:
                     {
-                        Console.WriteLine("Invalid input!");
-                        Console.WriteLine("**Press a key to continue**");
-                        Console.ReadKey();
+                        this.PrintInvalidInput();
                         break;
                     }
             }
+        }
+
+        private void PrintInvalidInput()
+        {
+            Console.WriteLine("Invalid input!");
+            Console.WriteLine("**Press a key to continue**");
+            Console.ReadKey();
         }
     }
 }
