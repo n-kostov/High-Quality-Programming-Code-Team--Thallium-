@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LabirynthGame
 {
-    public class Player
+    public class Player : IComparable
     {
         public string Name { get; set; }
         public int Moves { get; private set; }
@@ -41,6 +41,21 @@ namespace LabirynthGame
         {
             this.Moves++;
             this.PositionY++;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            Player otherPlayer = obj as Player;
+            if (otherPlayer != null)
+            {
+                return this.Moves.CompareTo(otherPlayer.Moves);
+            }
+            else
+            {
+                throw new ArgumentException("Object is not a Player");
+            }
         }
     }
 }
