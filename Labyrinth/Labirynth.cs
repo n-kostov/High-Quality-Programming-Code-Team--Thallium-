@@ -20,14 +20,15 @@ namespace LabirynthGame
         private int playerPositionY;
 
         private char[,] matrix;
-        private OrderedMultiDictionary<int, string> scoreBoard;
+        private ScoreBoard scoreBoard = new ScoreBoard();
+        //private OrderedMultiDictionary<int, string> scoreBoard;
 
         public Labirynth()
         {
             this.playerPositionX = StartPositionX;
             this.playerPositionY = StartPositionY;
             this.matrix = this.GenerateMatrix();
-            this.scoreBoard = new OrderedMultiDictionary<int, string>(true);
+            //this.scoreBoard = new OrderedMultiDictionary<int, string>(true);
         }
 
         private void Move(int directionX, int directionY)
@@ -155,38 +156,38 @@ namespace LabirynthGame
             return true;
         }
 
-        private int GetWorstScore()
-        {
-            int worstScore = this.scoreBoard.Keys.Last();
+        //private int GetWorstScore()
+        //{
+        //    int worstScore = this.scoreBoard.Keys.Last();
 
-            return worstScore;
-        }
+        //    return worstScore;
+        //}
 
-        private void PrintScore()
-        {
-            int counter = 1;
+        //private void PrintScore()
+        //{
+        //    int counter = 1;
 
-            if (this.scoreBoard.Count == 0)
-            {
-                Console.WriteLine("The scoreboard is empty.");
-            }
-            else
-            {
-                foreach (var score in this.scoreBoard)
-                {
-                    var foundScore = this.scoreBoard[score.Key];
+        //    if (this.scoreBoard.Count == 0)
+        //    {
+        //        Console.WriteLine("The scoreboard is empty.");
+        //    }
+        //    else
+        //    {
+        //        foreach (var score in this.scoreBoard)
+        //        {
+        //            var foundScore = this.scoreBoard[score.Key];
 
-                    foreach (var equalScore in foundScore)
-                    {
-                        Console.WriteLine("{0}. {1} --> {2}", counter, equalScore, score.Key);
-                    }
+        //            foreach (var equalScore in foundScore)
+        //            {
+        //                Console.WriteLine("{0}. {1} --> {2}", counter, equalScore, score.Key);
+        //            }
 
-                    counter++;
-                }
-            }
+        //            counter++;
+        //        }
+        //    }
 
-            Console.WriteLine();
-        }
+        //    Console.WriteLine();
+        //}
 
         public void PlayGame()
         {
@@ -201,8 +202,8 @@ namespace LabirynthGame
                 {
                     Console.WriteLine("Congratulations! You've exited the labirynth in {0} moves.", movesCounter);
 
-                    this.UpdateScoreBoard(movesCounter);
-                    this.PrintScore();
+                    scoreBoard.UpdateScoreBoard(movesCounter);
+                    scoreBoard.PrintScore();
                     movesCounter = 0;
                     currentLine = "RESTART";
                 }
@@ -265,7 +266,7 @@ namespace LabirynthGame
 
                 case "TOP":
                     {
-                        this.PrintScore();
+                        scoreBoard.PrintScore();
                         break;
                     }
 
@@ -284,39 +285,39 @@ namespace LabirynthGame
             }
         }
 
-        private void UpdateScoreBoard(int currentNumberOfMoves)
-        {
-            string userName = string.Empty;
+        //private void UpdateScoreBoard(int currentNumberOfMoves)
+        //{
+        //    string userName = string.Empty;
 
-            if (this.scoreBoard.Count < 5)
-            {
-                while (userName == string.Empty)
-                {
-                    Console.WriteLine("**Please put down your name:**");
-                    userName = Console.ReadLine();
-                }
+        //    if (this.scoreBoard.Count < 5)
+        //    {
+        //        while (userName == string.Empty)
+        //        {
+        //            Console.WriteLine("**Please put down your name:**");
+        //            userName = Console.ReadLine();
+        //        }
 
-                this.scoreBoard.Add(currentNumberOfMoves, userName);
-            }
-            else
-            {
-                int worstScore = this.GetWorstScore();
-                if (currentNumberOfMoves <= worstScore)
-                {
-                    if (this.scoreBoard.ContainsKey(currentNumberOfMoves) == false)
-                    {
-                        this.scoreBoard.Remove(worstScore);
-                    }
+        //        this.scoreBoard.Add(currentNumberOfMoves, userName);
+        //    }
+        //    else
+        //    {
+        //        int worstScore = this.GetWorstScore();
+        //        if (currentNumberOfMoves <= worstScore)
+        //        {
+        //            if (this.scoreBoard.ContainsKey(currentNumberOfMoves) == false)
+        //            {
+        //                this.scoreBoard.Remove(worstScore);
+        //            }
 
-                    while (userName == string.Empty)
-                    {
-                        Console.WriteLine("**Please put down your name:**");
-                        userName = Console.ReadLine();
-                    }
+        //            while (userName == string.Empty)
+        //            {
+        //                Console.WriteLine("**Please put down your name:**");
+        //                userName = Console.ReadLine();
+        //            }
 
-                    this.scoreBoard.Add(currentNumberOfMoves, userName);
-                }
-            }
-        }
+        //            this.scoreBoard.Add(currentNumberOfMoves, userName);
+        //        }
+        //    }
+        //}
     }
 }
