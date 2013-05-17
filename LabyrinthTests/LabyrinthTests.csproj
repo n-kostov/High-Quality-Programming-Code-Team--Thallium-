@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EngineTests.cs" />
     <Compile Include="LabyrinthTests.cs" />
     <Compile Include="ScoreBoardTests.cs" />
     <Compile Include="PlayerTests.cs" />
@@ -61,6 +62,9 @@
       <Project>{1c7fd2b7-685d-4fcb-a654-e6f373f40f95}</Project>
       <Name>Labyrinth</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="expected.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -33,6 +33,17 @@
             this.IntroduceTheGame();
         }
 
+        public Engine(Labyrinth labyrinth)
+        {
+            this.sizeOfTheLabirynth = labyrinth.Size;
+            this.StartPositionX = this.sizeOfTheLabirynth / 2;
+            this.StartPositionY = this.sizeOfTheLabirynth / 2;
+            this.labyrinth = labyrinth;
+            this.scoreBoard = new ScoreBoard();
+            this.player = new Player(StartPositionX, StartPositionY);
+            this.IntroduceTheGame();
+        }
+
         public void PlayGame()
         {
             string command = string.Empty;
@@ -48,7 +59,7 @@
                 }
                 else
                 {
-                    Console.Write("Enter your move (L=left, R-right, U=up, D=down):");
+                    Console.Write("Enter your move (L=left, R=right, U=up, D=down):");
                     currentLine = Console.ReadLine();
                 }
 
@@ -64,7 +75,7 @@
 
         private void IntroduceTheGame()
         {
-            Console.WriteLine("Welcome to “Labyrinth” game. Please try to escape. Use 'top' to view the top");
+            Console.WriteLine("Welcome to 'Labyrinth' game. Please try to escape. Use 'top' to view the top");
             Console.WriteLine("scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
         }
 
@@ -215,7 +226,7 @@
         {
             Console.WriteLine("Invalid input!");
             Console.WriteLine("**Press a key to continue**");
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 }
