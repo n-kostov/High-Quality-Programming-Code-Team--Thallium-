@@ -4,12 +4,12 @@
 
     public class Engine
     {
-        private readonly int StartPositionX;
-        private readonly int StartPositionY;
-
         private const char BlockedCell = 'X';
         private const char FreeCell = '-';
         private const char PlayerSign = '*';
+
+        private readonly int startPositionX;
+        private readonly int startPositionY;
 
         private int sizeOfTheLabirynth;
 
@@ -25,22 +25,22 @@
             }
 
             this.sizeOfTheLabirynth = sizeOfTheLabirynth;
-            this.StartPositionX = sizeOfTheLabirynth / 2;
-            this.StartPositionY = sizeOfTheLabirynth / 2;
+            this.startPositionX = sizeOfTheLabirynth / 2;
+            this.startPositionY = sizeOfTheLabirynth / 2;
             this.labyrinth = new Labyrinth(sizeOfTheLabirynth);
             this.scoreBoard = new ScoreBoard();
-            this.player = new Player(StartPositionX, StartPositionY);
+            this.player = new Player(this.startPositionX, this.startPositionY);
             this.IntroduceTheGame();
         }
 
         public Engine(Labyrinth labyrinth)
         {
             this.sizeOfTheLabirynth = labyrinth.Size;
-            this.StartPositionX = this.sizeOfTheLabirynth / 2;
-            this.StartPositionY = this.sizeOfTheLabirynth / 2;
+            this.startPositionX = this.sizeOfTheLabirynth / 2;
+            this.startPositionY = this.sizeOfTheLabirynth / 2;
             this.labyrinth = labyrinth;
             this.scoreBoard = new ScoreBoard();
-            this.player = new Player(StartPositionX, StartPositionY);
+            this.player = new Player(this.startPositionX, this.startPositionY);
             this.IntroduceTheGame();
         }
 
@@ -198,7 +198,7 @@
 
                 case "RESTART":
                     {
-                        this.player = new Player(StartPositionX, StartPositionY);
+                        this.player = new Player(this.startPositionX, this.startPositionY);
                         this.labyrinth = new Labyrinth(this.sizeOfTheLabirynth);
                         break;
                     }

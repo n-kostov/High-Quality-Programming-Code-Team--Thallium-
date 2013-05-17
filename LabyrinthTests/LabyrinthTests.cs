@@ -1,11 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LabirynthGame;
-using System.IO;
-using System.Text;
-
-namespace LabyrinthTests
+﻿namespace LabyrinthTests
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using LabirynthGame;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class LabyrinthTests
     {
@@ -41,13 +41,16 @@ namespace LabyrinthTests
         [TestMethod]
         public void PrintLabyrithTest()
         {
-            char[,] staticLabyrinth = { {'-', '-', 'X', 'X', 'X', 'X', '-'},
-                                        {'-', 'X', '-', '-', '-', '-', 'X'},
-                                        {'-', 'X', '-', 'X', 'X', '-', 'X'},
-                                        {'-', 'X', '-', '*', 'X', '-', 'X'},
-                                        {'-', 'X', '-', 'X', '-', '-', '-'},
-                                        {'-', 'X', '-', '-', '-', 'X', 'X'},
-                                        {'X', '-', 'X', '-', '-', 'X', 'X'}};
+            char[,] staticLabyrinth = 
+            { 
+                                      { '-', '-', 'X', 'X', 'X', 'X', '-' }, 
+                                      { '-', 'X', '-', '-', '-', '-', 'X' }, 
+                                      { '-', 'X', '-', 'X', 'X', '-', 'X' }, 
+                                      { '-', 'X', '-', '*', 'X', '-', 'X' }, 
+                                      { '-', 'X', '-', 'X', '-', '-', '-' }, 
+                                      { '-', 'X', '-', '-', '-', 'X', 'X' }, 
+                                      { 'X', '-', 'X', '-', '-', 'X', 'X' } 
+                                      };
 
             Labyrinth labyrinth = new Labyrinth(7);
             for (int i = 0; i < labyrinth.Size; i++)
@@ -57,7 +60,6 @@ namespace LabyrinthTests
                     labyrinth[i, j] = staticLabyrinth[i, j];
                 }
             }
-
 
             using (var sw = new StringWriter())
             {
@@ -84,6 +86,7 @@ namespace LabyrinthTests
                     {
                         expected.AppendFormat("{0,2}", staticLabyrinth[i, j].ToString());
                     }
+
                     expected.AppendLine();
                 }
 

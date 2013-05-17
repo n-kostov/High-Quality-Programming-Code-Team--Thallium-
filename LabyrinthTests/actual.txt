@@ -1,0 +1,42 @@
+Welcome to 'Labyrinth' game. Please try to escape. Use 'top' to view the top
+scoreboard, 'restart' to start a new game and 'exit' to quit the game.
+ X - - - - - X
+ X - X - - - -
+ X X - - - X -
+ X - X * X - -
+ - - - - X - -
+ - - X - - X X
+ - - X - - X -
+Enter your move (L=left, R=right, U=up, D=down):Invalid input!
+**Press a key to continue**
+ X - - - - - X
+ X - X - - - -
+ X X - - - X -
+ X - X * X - -
+ - - - - X - -
+ - - X - - X X
+ - - X - - X -
+Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
+ X - X - - - -
+ X X - - - X -
+ X - X - X - -
+ - - - * X - -
+ - - X - - X X
+ - - X - - X -
+Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
+ X - X - - - -
+ X X - - - X -
+ X - X - X - -
+ - - - - X - -
+ - - X * - X X
+ - - X - - X -
+Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
+ X - X - - - -
+ X X - - - X -
+ X - X - X - -
+ - - - - X - -
+ - - X - - X X
+ - - X * - X -
+Congratulations! You've exited the labyrinth in 3 moves.
+**Please put down your name:**
+1. Pesho --> 3

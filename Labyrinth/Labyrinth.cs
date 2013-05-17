@@ -4,14 +4,15 @@
 
     public class Labyrinth
     {
-        private readonly int StartPositionX;
-        private readonly int StartPositionY;
         private const int MinimumPercentageOfBlockedCells = 30;
         private const int MaximumPercentageOfBlockedCells = 50;
 
         private const char BlockedCell = 'X';
         private const char FreeCell = '-';
         private const char PlayerSign = '*';
+
+        private readonly int startPositionX;
+        private readonly int startPositionY;
 
         private int sizeOfTheLabyrinth;
         private char[,] matrix;
@@ -24,10 +25,18 @@
             }
 
             this.sizeOfTheLabyrinth = sizeOfTheLabyrinth;
-            this.StartPositionX = sizeOfTheLabyrinth / 2;
-            this.StartPositionY = sizeOfTheLabyrinth / 2;
+            this.startPositionX = sizeOfTheLabyrinth / 2;
+            this.startPositionY = sizeOfTheLabyrinth / 2;
             this.matrix = new char[sizeOfTheLabyrinth, sizeOfTheLabyrinth];
             this.GenerateMatrix();
+        }
+
+        public int Size
+        {
+            get
+            {
+                return this.sizeOfTheLabyrinth;
+            }
         }
 
         public char this[int row, int col]
@@ -65,14 +74,6 @@
             }
         }
 
-        public int Size
-        {
-            get
-            {
-                return this.sizeOfTheLabyrinth;
-            }
-        }
-
         public void PrintLabirynth()
         {
             for (int row = 0; row < this.sizeOfTheLabyrinth; row++)
@@ -90,7 +91,7 @@
         {
             this.GenerateMatrixBlockedCells();
 
-            this.matrix[StartPositionX, StartPositionY] = PlayerSign;
+            this.matrix[this.startPositionX, this.startPositionY] = PlayerSign;
 
             this.MakeAtLeastOneExitReachable(this.matrix);
         }
@@ -120,8 +121,8 @@
         private void MakeAtLeastOneExitReachable(char[,] generatedMatrix)
         {
             Random rand = new Random();
-            int row = StartPositionX;
-            int col = StartPositionY;
+            int row = this.startPositionX;
+            int col = this.startPositionY;
             int[] dirX = { 0, 0, 1, -1 };
             int[] dirY = { 1, -1, 0, 0 };
             int numberOfDirections = 4;

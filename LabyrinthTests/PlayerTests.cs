@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LabirynthGame;
-
-namespace LabyrinthTests
+﻿namespace LabyrinthTests
 {
+    using System;
+    using LabirynthGame;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class PlayerTests
     {

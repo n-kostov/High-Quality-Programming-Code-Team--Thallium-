@@ -1,11 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LabirynthGame;
-using System.IO;
-using System.Text;
-
-namespace LabyrinthTests
+﻿namespace LabyrinthTests
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using LabirynthGame;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class ScoreBoardTests
     {
@@ -129,6 +129,7 @@ namespace LabyrinthTests
                         actual.AppendLine(splitLines[i]);
                     }
                 }
+
                 Assert.AreEqual(expected.ToString(), actual.ToString());
             }
         }
