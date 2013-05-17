@@ -23,7 +23,7 @@
         private Labyrinth labyrinth = new Labyrinth(7);
 
         [TestMethod]
-        public void PlayGameTest()
+        public void PlayGameTestPathOnlyDown()
         {
             this.InitializeData();
 
@@ -76,6 +76,76 @@
                     StringBuilder actual = new StringBuilder();
 
                     string[] splitLines = sw.ToString().Split(delims, StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < splitLines.Length && i <= lineOfTermination; i++)
+                    {
+                        if (!string.IsNullOrWhiteSpace(splitLines[i]))
+                        {
+                            actual.AppendLine(splitLines[i]);
+                        }
+                    }
+
+                    Assert.AreEqual(expected.ToString(), actual.ToString());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void PlayGameTestDifferentMoves()
+        {
+            this.InitializeData();
+
+            StringBuilder input = new StringBuilder();
+            input.AppendLine("u");
+            input.AppendLine("l");
+            input.AppendLine("r");
+            input.AppendLine("d");
+            input.AppendLine("u");
+            input.AppendLine("u");
+            input.AppendLine("u");
+            input.AppendLine("Pesho");
+            input.AppendLine("exit");
+
+            using (var sw = new StringWriter())
+            {
+                using (var sr = new StringReader(input.ToString()))
+                {
+                    Console.SetOut(sw);
+                    Console.SetIn(sr);
+
+                    Engine engine = new Engine(this.labyrinth);
+
+                    engine.PlayGame();
+
+                    StringBuilder expected = new StringBuilder();
+                    string terminateLine = "1. Pesho --> 7";
+                    int lineOfTermination = 0;
+                    string[] lines;
+                    char[] delims = { '\r', '\n' };
+                    using (var stream = new StreamReader("..\\..\\expected2.txt"))
+                    {
+                        while (!stream.EndOfStream)
+                        {
+                            lines = stream.ReadToEnd().Split(delims, StringSplitOptions.RemoveEmptyEntries);
+
+                            for (int i = 0; i < lines.Length; i++)
+                            {
+                                if (!string.IsNullOrWhiteSpace(lines[i]))
+                                {
+                                    expected.AppendLine(lines[i]);
+                                    if (lines[i] == terminateLine)
+                                    {
+                                        lineOfTermination = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    StringBuilder actual = new StringBuilder();
+
+                    string[] splitLines = sw.ToString().Split(delims, StringSplitOptions.RemoveEmptyEntries);
+
                     for (int i = 0; i < splitLines.Length && i <= lineOfTermination; i++)
                     {
                         if (!string.IsNullOrWhiteSpace(splitLines[i]))

@@ -7,9 +7,28 @@ scoreboard, 'restart' to start a new game and 'exit' to quit the game.
  - - - - X - -
  - - X - - X X
  - - X - - X -
-Enter your move (L=left, R=right, U=up, D=down):Invalid input!
-**Press a key to continue**
- X - - - - - X
+Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
+ X - X - - - -
+ X X - * - X -
+ X - X - X - -
+ - - - - X - -
+ - - X - - X X
+ - - X - - X -
+Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
+ X - X - - - -
+ X X * - - X -
+ X - X - X - -
+ - - - - X - -
+ - - X - - X X
+ - - X - - X -
+Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
+ X - X - - - -
+ X X - * - X -
+ X - X - X - -
+ - - - - X - -
+ - - X - - X X
+ - - X - - X -
+Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
  X - X - - - -
  X X - - - X -
  X - X * X - -
@@ -18,25 +37,25 @@ Enter your move (L=left, R=right, U=up, D=down):Invalid input!
  - - X - - X -
 Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
  X - X - - - -
- X X - - - X -
+ X X - * - X -
  X - X - X - -
- - - - * X - -
+ - - - - X - -
  - - X - - X X
  - - X - - X -
 Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
- X - X - - - -
- X X - - - X -
- X - X - X - -
- - - - - X - -
- - - X * - X X
- - - X - - X -
-Enter your move (L=left, R=right, U=up, D=down): X - - - - - X
- X - X - - - -
+ X - X * - - -
  X X - - - X -
  X - X - X - -
  - - - - X - -
  - - X - - X X
- - - X * - X -
-Congratulations! You've exited the labyrinth in 3 moves.
+ - - X - - X -
+Enter your move (L=left, R=right, U=up, D=down): X - - * - - X
+ X - X - - - -
+ X X - - - X -
+ X - X - X - -
+ - - - - X - -
+ - - X - - X X
+ - - X - - X -
+Congratulations! You've exited the labyrinth in 7 moves.
 **Please put down your name:**
-1. Pesho --> 3
+1. Pesho --> 7

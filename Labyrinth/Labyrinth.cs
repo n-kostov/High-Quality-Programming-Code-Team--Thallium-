@@ -43,11 +43,11 @@
         {
             get
             {
-                if (row < 0 || row >= this.sizeOfTheLabyrinth)
+                if (!this.IsInRange(row))
                 {
                     throw new ArgumentOutOfRangeException("row", "The labyrinth does not have such row!");
                 }
-                else if (col < 0 || col >= this.sizeOfTheLabyrinth)
+                else if (!this.IsInRange(col))
                 {
                     throw new ArgumentOutOfRangeException("col", "The labyrinth does not have such col!");
                 }
@@ -59,11 +59,11 @@
 
             set
             {
-                if (row < 0 || row >= this.sizeOfTheLabyrinth)
+                if (!this.IsInRange(row))
                 {
                     throw new ArgumentOutOfRangeException("row", "The labyrinth does not have such row!");
                 }
-                else if (col < 0 || col >= this.sizeOfTheLabyrinth)
+                else if (!this.IsInRange(col))
                 {
                     throw new ArgumentOutOfRangeException("col", "The labyrinth does not have such col!");
                 }
@@ -153,8 +153,8 @@
 
         private bool IsInTheLabirynth(int row, int col)
         {
-            bool isInTheLabirynth = row >= 0 && row < this.sizeOfTheLabyrinth &&
-                col >= 0 && col < this.sizeOfTheLabyrinth;
+            bool isInTheLabirynth = this.IsInRange(row) &&
+                this.IsInRange(col);
 
             return isInTheLabirynth;
         }
@@ -168,6 +168,12 @@
             }
 
             return true;
+        }
+
+        private bool IsInRange(int coordinate)
+        {
+            bool isInRange = coordinate >= 0 && coordinate < this.sizeOfTheLabyrinth;
+            return isInRange;
         }
     }
 }
