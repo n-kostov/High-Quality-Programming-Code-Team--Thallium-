@@ -62,7 +62,7 @@
 
         private void IntroduceTheGame()
         {
-            Console.WriteLine("Welcome to “Labirinth” game. Please try to escape. Use 'top' to view the top");
+            Console.WriteLine("Welcome to “Labyrinth” game. Please try to escape. Use 'top' to view the top");
             Console.WriteLine("scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
         }
 

@@ -13,13 +13,6 @@
             this.scoreBoard = new OrderedMultiDictionary<int, Player>(true);
         }
 
-        public int GetWorstScore()
-        {
-            int worstScore = this.scoreBoard.Keys.Last();
-
-            return worstScore;
-        }
-
         public void PrintScore()
         {
             int counter = 1;
@@ -65,6 +58,13 @@
                     this.scoreBoard.Add(player.Moves, player);
                 }
             }
+        }
+
+        private int GetWorstScore()
+        {
+            int worstScore = this.scoreBoard.Keys.Last();
+
+            return worstScore;
         }
     }
 }
