@@ -4,8 +4,8 @@
 
     public class Labyrinth
     {
-        private const int StartPositionX = 3;
-        private const int StartPositionY = 3;
+        private readonly int StartPositionX;
+        private readonly int StartPositionY;
         private const int MinimumPercentageOfBlockedCells = 30;
         private const int MaximumPercentageOfBlockedCells = 50;
 
@@ -24,6 +24,8 @@
             }
 
             this.sizeOfTheLabyrinth = sizeOfTheLabyrinth;
+            this.StartPositionX = sizeOfTheLabyrinth / 2;
+            this.StartPositionY = sizeOfTheLabyrinth / 2;
             this.matrix = new char[sizeOfTheLabyrinth, sizeOfTheLabyrinth];
             this.GenerateMatrix();
         }
@@ -60,6 +62,14 @@
                 {
                     this.matrix[row, col] = value;
                 }
+            }
+        }
+
+        public int Size
+        {
+            get
+            {
+                return this.sizeOfTheLabyrinth;
             }
         }
 

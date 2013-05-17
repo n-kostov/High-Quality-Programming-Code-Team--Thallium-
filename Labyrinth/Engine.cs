@@ -4,8 +4,8 @@
 
     public class Engine
     {
-        private const int StartPositionX = 3;
-        private const int StartPositionY = 3;
+        private readonly int StartPositionX;
+        private readonly int StartPositionY;
 
         private const char BlockedCell = 'X';
         private const char FreeCell = '-';
@@ -25,6 +25,8 @@
             }
 
             this.sizeOfTheLabirynth = sizeOfTheLabirynth;
+            this.StartPositionX = sizeOfTheLabirynth / 2;
+            this.StartPositionY = sizeOfTheLabirynth / 2;
             this.labyrinth = new Labyrinth(sizeOfTheLabirynth);
             this.scoreBoard = new ScoreBoard();
             this.player = new Player(StartPositionX, StartPositionY);
