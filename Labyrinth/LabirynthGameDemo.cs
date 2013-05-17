@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class LabirynthTest
+    public class LabirynthGameDemo
     {
         private const int SizeOfTheLabirynth = 7;
 

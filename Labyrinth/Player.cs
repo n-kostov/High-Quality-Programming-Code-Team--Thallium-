@@ -35,7 +35,7 @@
 
         public int PositionX { get; private set; }
 
-        public int PositionY { get; private set; } // TODO: setter should be checked
+        public int PositionY { get; private set; }
 
         public void MoveLeft()
         {
