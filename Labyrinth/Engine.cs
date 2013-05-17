@@ -19,6 +19,11 @@
 
         public Engine(int sizeOfTheLabirynth)
         {
+            if (sizeOfTheLabirynth)
+            {
+                throw new ArgumentException("The size of the labirynth cannot be less than 1", "sizeOfTheLabirynth");
+            }
+
             this.sizeOfTheLabirynth = sizeOfTheLabirynth;
             this.labirynth = new Labirynth(sizeOfTheLabirynth);
             this.scoreBoard = new ScoreBoard();
