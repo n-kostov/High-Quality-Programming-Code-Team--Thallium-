@@ -19,7 +19,7 @@
 
         public Engine(int sizeOfTheLabirynth)
         {
-            if (sizeOfTheLabirynth)
+            if (sizeOfTheLabirynth < 1)
             {
                 throw new ArgumentException("The size of the labirynth cannot be less than 1", "sizeOfTheLabirynth");
             }

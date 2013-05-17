@@ -4,13 +4,32 @@
 
     public class Player : IComparable
     {
+        private string name;
+
         public Player(int positionX, int positionY)
         {
+            this.Moves = 0;
             this.PositionX = positionX;
             this.PositionY = positionY;
         }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("name", "The Player's name cannot be null or whitespace!");
+                }
+
+                this.name = value;
+            }
+        }
 
         public int Moves { get; private set; }
 
