@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class Labirynth
+    public class Labyrinth
     {
         private const int StartPositionX = 3;
         private const int StartPositionY = 3;
@@ -13,18 +13,18 @@
         private const char FreeCell = '-';
         private const char PlayerSign = '*';
 
-        private int sizeOfTheLabirynth;
+        private int sizeOfTheLabyrinth;
         private char[,] matrix;
 
-        public Labirynth(int sizeOfTheLabirynth)
+        public Labyrinth(int sizeOfTheLabyrinth)
         {
-            if (sizeOfTheLabirynth < 1)
+            if (sizeOfTheLabyrinth < 1)
             {
-                throw new ArgumentException("The size of the labirynth cannot be less than 1", "sizeOfTheLabirynth");
+                throw new ArgumentException("The size of the labyrinth cannot be less than 1", "sizeOfTheLabirynth");
             }
 
-            this.sizeOfTheLabirynth = sizeOfTheLabirynth;
-            this.matrix = new char[sizeOfTheLabirynth, sizeOfTheLabirynth];
+            this.sizeOfTheLabyrinth = sizeOfTheLabyrinth;
+            this.matrix = new char[sizeOfTheLabyrinth, sizeOfTheLabyrinth];
             this.GenerateMatrix();
         }
 
@@ -32,13 +32,13 @@
         {
             get
             {
-                if (row < 0 || row >= this.sizeOfTheLabirynth)
+                if (row < 0 || row >= this.sizeOfTheLabyrinth)
                 {
-                    throw new ArgumentOutOfRangeException("row", "The labirynth does not have such row!");
+                    throw new ArgumentOutOfRangeException("row", "The labyrinth does not have such row!");
                 }
-                else if (col < 0 || col >= this.sizeOfTheLabirynth)
+                else if (col < 0 || col >= this.sizeOfTheLabyrinth)
                 {
-                    throw new ArgumentOutOfRangeException("col", "The labirynth does not have such col!");
+                    throw new ArgumentOutOfRangeException("col", "The labyrinth does not have such col!");
                 }
                 else
                 {
@@ -48,13 +48,13 @@
 
             set
             {
-                if (row < 0 || row >= this.sizeOfTheLabirynth)
+                if (row < 0 || row >= this.sizeOfTheLabyrinth)
                 {
-                    throw new ArgumentOutOfRangeException("row", "The labirynth does not have such row!");
+                    throw new ArgumentOutOfRangeException("row", "The labyrinth does not have such row!");
                 }
-                else if (col < 0 || col >= this.sizeOfTheLabirynth)
+                else if (col < 0 || col >= this.sizeOfTheLabyrinth)
                 {
-                    throw new ArgumentOutOfRangeException("col", "The labirynth does not have such col!");
+                    throw new ArgumentOutOfRangeException("col", "The labyrinth does not have such col!");
                 }
                 else
                 {
@@ -65,9 +65,9 @@
 
         public void PrintLabirynth()
         {
-            for (int row = 0; row < this.sizeOfTheLabirynth; row++)
+            for (int row = 0; row < this.sizeOfTheLabyrinth; row++)
             {
-                for (int col = 0; col < this.sizeOfTheLabirynth; col++)
+                for (int col = 0; col < this.sizeOfTheLabyrinth; col++)
                 {
                     Console.Write("{0,2}", this.matrix[row, col]);
                 }
@@ -90,9 +90,9 @@
             Random rand = new Random();
             int percentageOfBlockedCells = rand.Next(MinimumPercentageOfBlockedCells, MaximumPercentageOfBlockedCells);
 
-            for (int row = 0; row < this.sizeOfTheLabirynth; row++)
+            for (int row = 0; row < this.sizeOfTheLabyrinth; row++)
             {
-                for (int col = 0; col < this.sizeOfTheLabirynth; col++)
+                for (int col = 0; col < this.sizeOfTheLabyrinth; col++)
                 {
                     int num = rand.Next(0, 100);
                     if (num < percentageOfBlockedCells)
@@ -142,16 +142,16 @@
 
         private bool IsInTheLabirynth(int row, int col)
         {
-            bool isInTheLabirynth = row >= 0 && row < this.sizeOfTheLabirynth &&
-                col >= 0 && col < this.sizeOfTheLabirynth;
+            bool isInTheLabirynth = row >= 0 && row < this.sizeOfTheLabyrinth &&
+                col >= 0 && col < this.sizeOfTheLabyrinth;
 
             return isInTheLabirynth;
         }
 
         private bool HasSolution(int row, int col)
         {
-            if ((row > 0 && row < this.sizeOfTheLabirynth - 1) &&
-                (col > 0 && col < this.sizeOfTheLabirynth - 1))
+            if ((row > 0 && row < this.sizeOfTheLabyrinth - 1) &&
+                (col > 0 && col < this.sizeOfTheLabyrinth - 1))
             {
                 return false;
             }

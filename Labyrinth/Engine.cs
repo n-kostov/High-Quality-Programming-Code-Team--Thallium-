@@ -13,7 +13,7 @@
 
         private int sizeOfTheLabirynth;
 
-        private Labirynth labirynth;
+        private Labyrinth labyrinth;
         private ScoreBoard scoreBoard;
         private Player player;
 
@@ -21,11 +21,11 @@
         {
             if (sizeOfTheLabirynth < 1)
             {
-                throw new ArgumentException("The size of the labirynth cannot be less than 1", "sizeOfTheLabirynth");
+                throw new ArgumentException("The size of the labyrinth cannot be less than 1", "sizeOfTheLabyrinth");
             }
 
             this.sizeOfTheLabirynth = sizeOfTheLabirynth;
-            this.labirynth = new Labirynth(sizeOfTheLabirynth);
+            this.labyrinth = new Labyrinth(sizeOfTheLabirynth);
             this.scoreBoard = new ScoreBoard();
             this.player = new Player(StartPositionX, StartPositionY);
             this.IntroduceTheGame();
@@ -36,7 +36,7 @@
             string command = string.Empty;
             while (command.Equals("EXIT") == false)
             {
-                this.labirynth.PrintLabirynth();
+                this.labyrinth.PrintLabirynth();
                 string currentLine = string.Empty;
 
                 if (this.HasWon(this.player.PositionX, this.player.PositionY))
@@ -73,15 +73,15 @@
                 return;
             }
 
-            if (this.labirynth[this.player.PositionX + directionX, this.player.PositionY + directionY] == BlockedCell)
+            if (this.labyrinth[this.player.PositionX + directionX, this.player.PositionY + directionY] == BlockedCell)
             {
                 this.PrintInvalidInput();
                 return;
             }
             else
             {
-                this.labirynth[this.player.PositionX, this.player.PositionY] = FreeCell;
-                this.labirynth[this.player.PositionX + directionX, this.player.PositionY + directionY] = PlayerSign;
+                this.labyrinth[this.player.PositionX, this.player.PositionY] = FreeCell;
+                this.labyrinth[this.player.PositionX + directionX, this.player.PositionY + directionY] = PlayerSign;
 
                 this.ChoosePlayerMove(directionX, directionY);
 
@@ -139,7 +139,7 @@
 
         private void CelebrateVictory()
         {
-            Console.WriteLine("Congratulations! You've exited the labirynth in {0} moves.", this.player.Moves);
+            Console.WriteLine("Congratulations! You've exited the labyrinth in {0} moves.", this.player.Moves);
 
             string userName = string.Empty;
 
@@ -186,7 +186,7 @@
                 case "RESTART":
                     {
                         this.player = new Player(StartPositionX, StartPositionY);
-                        this.labirynth = new Labirynth(this.sizeOfTheLabirynth);
+                        this.labyrinth = new Labyrinth(this.sizeOfTheLabirynth);
                         break;
                     }
 
