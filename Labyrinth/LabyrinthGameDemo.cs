@@ -8,7 +8,7 @@
 
         public static void Main()
         {
-            throw new ArgumentException("Faild the build");
+            throw new ArgumentException("Faild the build")
             Engine labyrinthEngine = new Engine(SizeOfTheLabyrinth);
             labyrinthEngine.PlayGame();
         }
