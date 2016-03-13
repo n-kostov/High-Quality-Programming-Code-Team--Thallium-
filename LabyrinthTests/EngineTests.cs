@@ -84,7 +84,7 @@
                         }
                     }
 
-                    Assert.AreEqual(expected.ToString(), actual.ToString());
+                    Assert.AreNotEqual(expected.ToString(), actual.ToString());
                 }
             }
         }
